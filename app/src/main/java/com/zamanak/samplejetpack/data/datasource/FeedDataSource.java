@@ -22,14 +22,20 @@ public class FeedDataSource extends PageKeyedDataSource<Long, Article> implement
 
     private static final String TAG = FeedDataSource.class.getSimpleName();
 
+    /*
+     * Step 1: Initialize the restApiFactory.
+     * The networkState and initialLoading variables
+     * are for updating the UI when data is being fetched
+     * by displaying a progress bar
+     */
     private App app;
 
     private MutableLiveData networkState;
     private MutableLiveData initialLoading;
 
     public FeedDataSource(App app) {
-        this.app = app;
 
+        this.app = app;
         networkState = new MutableLiveData();
         initialLoading = new MutableLiveData();
     }
@@ -43,6 +49,12 @@ public class FeedDataSource extends PageKeyedDataSource<Long, Article> implement
         return initialLoading;
     }
 
+    /*
+     * Step 2: This method is responsible to load the data initially
+     * when app screen is launched for the first time.
+     * We are fetching the first page data from the api
+     * and passing it via the callback method to the UI.
+     */
     @Override
     public void loadInitial(@NonNull LoadInitialParams<Long> params,
                             @NonNull final LoadInitialCallback<Long, Article> callback) {
@@ -79,6 +91,13 @@ public class FeedDataSource extends PageKeyedDataSource<Long, Article> implement
 
     }
 
+    /*
+     * Step 3: This method it is responsible for the subsequent call to load the data page wise.
+     * This method is executed in the background thread
+     * We are fetching the next page data from the api
+     * and passing it via the callback method to the UI.
+     * The "params.key" variable will have the updated value.
+     */
     @Override
     public void loadAfter(@NonNull final LoadParams<Long> params,
                           @NonNull final LoadCallback<Long, Article> callback) {

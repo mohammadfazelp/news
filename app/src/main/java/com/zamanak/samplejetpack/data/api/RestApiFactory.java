@@ -15,6 +15,7 @@ public class RestApiFactory {
 
 
     public static RestApi create() {
+
         HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
         logging.setLevel(HttpLoggingInterceptor.Level.BODY);
 

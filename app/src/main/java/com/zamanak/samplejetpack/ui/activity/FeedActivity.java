@@ -20,6 +20,7 @@ public class FeedActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_feed);
@@ -27,15 +28,18 @@ public class FeedActivity extends AppCompatActivity {
         feedViewModel = new FeedViewModel(App.create(this));
 
         binding.listFeed.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+
         adapter = new FeedListAdapter(getApplicationContext());
 
-        feedViewModel.getArticleLiveData().observe(this, pagedList -> {
-            adapter.submitList(pagedList);
-        });
+        /*
+         * When a new page is available, we call submitList() method
+         * of the PagedListAdapter class
+         */
+        feedViewModel.getArticleLiveData().observe(this,
+                pagedList -> adapter.submitList(pagedList));
 
-        feedViewModel.getNetworkState().observe(this, networkState -> {
-            adapter.setNetworkState(networkState);
-        });
+        feedViewModel.getNetworkState().observe(this,
+                networkState -> adapter.setNetworkState(networkState));
 
         binding.listFeed.setAdapter(adapter);
     }

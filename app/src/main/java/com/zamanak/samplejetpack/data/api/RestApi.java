@@ -11,7 +11,6 @@ import retrofit2.http.Query;
  */
 public interface RestApi {
 
-
     @GET("/v2/everything")
     Call<Feed> fetchFeed(@Query("q") String q,
                          @Query("apiKey") String apiKey,

@@ -11,13 +11,17 @@ import com.zamanak.samplejetpack.data.datasource.FeedDataSource;
  */
 public class FeedDataFactory extends DataSource.Factory {
 
+    /*DataSourceFactory is responsible for retrieving the data
+    using the DataSource and PagedList configuration which we
+    create in our ViewModel class.*/
+
     private MutableLiveData<FeedDataSource> mutableLiveData;
     private FeedDataSource feedDataSource;
     private App app;
 
     public FeedDataFactory(App app) {
         this.app = app;
-        this.mutableLiveData = new MutableLiveData<FeedDataSource>();
+        this.mutableLiveData = new MutableLiveData<>();
     }
 
     @Override
